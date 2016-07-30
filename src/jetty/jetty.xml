@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<Configure id="Webapp" class="org.eclipse.jetty.webapp.WebAppContext">
+    <New id="infraserver" class="org.eclipse.jetty.server.Server">
+        <Arg type="java.lang.Integer">8080</Arg>
+        <!--Set name="handler">
+            <New id="collection" class="org.eclipse.jetty.server.handler.ContextHandlerCollection">
+                <Call name="addHandler">
+                    <Arg>
+                        <New class="org.eclipse.jetty.webapp.WebAppContext">
+                            <Set name="contextPath">/</Set>
+                            <Set name="war">target/surfsentry-<SystemProperty name="projectVersion"/>.war</Set>
+                            <Set name="throwUnavailableOnStartupException">true</Set>
+                        </New>
+                    </Arg>
+                </Call>
+
+            </New>
+        </Set-->
+        <Call name="start"/>
+    </New>
+</Configure>

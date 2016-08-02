@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.format.DateTimeFormatter;
 
-@WebServlet("/surfsentry")
+@WebServlet("/")
 public class SurfSentryServlet extends HttpServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(SurfSentryServlet.class);
 
@@ -25,7 +25,7 @@ public class SurfSentryServlet extends HttpServlet {
 
     @Override
     public String getServletInfo() {
-        return "Surf Sentry";
+        return "Surf Sentry Web Proxy";
     }
 
     @Override
@@ -50,17 +50,18 @@ public class SurfSentryServlet extends HttpServlet {
         out.println("<style>table, th, td { border: 1px solid black; border-collapse: collapse; padding: 3px;}</style>");
         out.println("<h1>Surf Sentry Statistics</h1>");
 
-        out.println("<h2>Page Visit Counts</h2>");
-        out.println("<table><tr><th style='text-align:left'>Host</th><th style='text-align:right'>Visits</th><th style='text-align:left'>Last visit</th></tr>");
-        statsCollector.getPageVisits()
-                .forEach(pvc -> out.println("<tr><td>" + pvc.getHost() + "</td><td style='text-align:right'>" + pvc.getCount() + "</td><td>" + pvc.getLastVisit().format(dateTimeFormatter) + "</td></tr>"));
-        out.println("</table>");
-
         out.println("<h2>Devices in Use</h2>");
         out.println("<table><tr><th style='text-align:left'>Device</th><th style='text-align:left'>Last request</th></tr>");
         statsCollector.getLastRequestForDevices()
                 .forEach((device, time) -> out.println("<tr><td style='text-align:left'>" + device + "</td><td>" + time.format(dateTimeFormatter) + "</td></tr>"));
         out.println("</table>");
 
+        out.println("<h2>Page Visit Counts</h2>");
+        out.println("<table><tr><th style='text-align:left'>Host</th><th style='text-align:right'>Visits</th><th style='text-align:left'>Last visit</th></tr>");
+        statsCollector.getPageVisits()
+                .forEach(pvc -> out.println("<tr><td>" + pvc.getHost() + "</td><td style='text-align:right'>" + pvc.getCount() + "</td><td>" + pvc.getLastVisit().format(dateTimeFormatter) + "</td></tr>"));
+        out.println("</table>");
+
         out.println("</body></html>");
-    }}
+    }
+}

@@ -12,9 +12,9 @@
     </appender>
 
     <appender name="trace" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${node.logdir}/${node.hostname}_trace.log</file>
+        <file>${surfsentry.logdir}/${node.hostname}_trace.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${node.logdir}/${node.hostname}_trace.%d{yyyy-MM-dd_HH}.log.gz</fileNamePattern>
+            <fileNamePattern>${surfsentry.logdir}/${node.hostname}_trace.%d{yyyy-MM-dd_HH}.log.gz</fileNamePattern>
         </rollingPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd}T%d{'HH:mm:ss.SSS'} %-5level [%thread] %logger{40} %msg%n%nopex</pattern>
@@ -23,9 +23,9 @@
 
     <!--appender name="stacktrace" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="no.svv.nvdb.api.inn.logging.StackTraceLogFilter" />
-        <file>${node.logdir}/${node.hostname}_stacktrace.log</file>
+        <file>${surfsentry.logdir}/${node.hostname}_stacktrace.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${node.logdir}/${node.hostname}_stacktrace.%d{yyyy-MM-dd_HH}.log.gz</fileNamePattern>
+            <fileNamePattern>${surfsentry.logdir}/${node.hostname}_stacktrace.%d{yyyy-MM-dd_HH}.log.gz</fileNamePattern>
         </rollingPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd}T%d{'HH:mm:ss.SSS'} %-5level [%thread] %logger{40} %msg%n</pattern>
@@ -33,18 +33,14 @@
     </appender -->
 
     <!--appender name="accesslog" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${node.logdir}/${node.hostname}_access.log</file>
+        <file>${surfsentry.logdir}/${node.hostname}_access.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${node.logdir}/${node.hostname}_access.%d{yyyy-MM-dd_HH}.log.gz</fileNamePattern>
+            <fileNamePattern>${surfsentry.logdir}/${node.hostname}_access.%d{yyyy-MM-dd_HH}.log.gz</fileNamePattern>
         </rollingPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd}T%d{'HH:mm:ss.SSS'} [%thread] %msg%n</pattern>
         </encoder>
-    </appender>
-
-    <logger name="no.torand.parentpatroll.AccessLogger" level="INFO" additivity="false">
-        <appender-ref ref="accesslog"/>
-    </logger-->
+    </appender-->
 
     <root level="INFO">
         <appender-ref ref="trace"/>

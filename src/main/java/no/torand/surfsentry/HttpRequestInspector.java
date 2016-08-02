@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetAddress;
+import java.net.SocketAddress;
 import java.net.UnknownHostException;
 
 import static io.netty.handler.codec.http.HttpResponseStatus.FORBIDDEN;
@@ -64,7 +65,15 @@ public class HttpRequestInspector extends HttpFiltersSourceAdapter {
     }
 
     private String getClientAddress(Channel channel) {
-        String address = channel.remoteAddress().toString();
+        SocketAddress socketAddress = channel.remoteAddress();
+        String address = socketAddress.toString();
+
+        /*try {
+            InetAddress inetAddress = InetAddress.getByName(address);
+            address = inetAddress.getHostAddress();
+        } catch (UnknownHostException e) {
+
+        }*/
 
         if (address.startsWith("/")) {
             address = address.substring(1);

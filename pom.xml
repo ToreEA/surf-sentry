@@ -11,12 +11,13 @@
 
     <name>Surf Sentry</name>
 
-    <!-- url>http://maven.apache.org</url -->
+    <url>https://github.com/ToreEA/surf-sentry</url>
 
     <properties>
-        <jetty.version>9.3.10.v20160621</jetty.version>
+        <jetty.version>9.3.11.v20160721</jetty.version>
         <javaxservlet.version>3.1.0</javaxservlet.version>
         <cdi-api.version>1.2</cdi-api.version>
+        <weld-servlet.version>3.0.0.Alpha16</weld-servlet.version>
         <littleproxy.version>1.1.0</littleproxy.version>
         <logback.version>1.0.13</logback.version>
         <slf4j.version>1.7.5</slf4j.version>
@@ -37,7 +38,7 @@
         <dependency>
             <groupId>org.jboss.weld.servlet</groupId>
             <artifactId>weld-servlet-shaded</artifactId>
-            <version>3.0.0.Alpha16</version>
+            <version>${weld-servlet.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -86,66 +87,11 @@
     </dependencies>
 
     <build>
-        <!-- finalName>surfsentry</finalName -->
         <plugins>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/target/jetty</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}/src/test/jetty/</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty.version}</version>
-                <dependencies>
-                    <!--dependency>
-                        <groupId>org.jboss.weld.servlet</groupId>
-                        <artifactId>weld-servlet-core</artifactId>
-                        <version>3.0.0.Alpha16</version>
-                    </dependency-->
-                    <dependency>
-                        <groupId>org.jboss.weld.servlet</groupId>
-                        <artifactId>weld-servlet-shaded</artifactId>
-                        <version>3.0.0.Alpha16</version>
-                    </dependency>
-                    <!--dependency>
-                        <groupId>com.oracle</groupId>
-                        <artifactId>ojdbc7</artifactId>
-                        <version>${oracle.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.oracle</groupId>
-                        <artifactId>ojdbc7-i18n</artifactId>
-                        <version>${oracle.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.h2database</groupId>
-                        <artifactId>h2</artifactId>
-                        <version>${h2.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.tomcat</groupId>
-                        <artifactId>tomcat-jdbc</artifactId>
-                        <version>${tomcat.version}</version>
-                    </dependency-->
-                </dependencies>
                 <configuration>
                     <systemProperties>
                         <systemProperty>
@@ -153,25 +99,21 @@
                             <value>localhost</value>
                         </systemProperty>
                         <systemProperty>
-                            <name>node.logdir</name>
+                            <name>surfsentry.logdir</name>
                             <value>${project.build.directory}/logs</value>
                         </systemProperty>
                         <systemProperty>
-                            <name>projectVersion</name>
-                            <value>${project.version}</value>
+                            <name>surfsentry.configdir</name>
+                            <value>${basedir}/src/jetty</value>
                         </systemProperty>
                     </systemProperties>
-                    <stopPort>9966</stopPort>
-                    <stopKey>foo</stopKey>
-                    <daemon>false</daemon>
-                    <jettyXml>${basedir}/src/jetty/jetty.xml</jettyXml>
+                    <contextXml>${basedir}/src/jetty/jetty-context.xml</contextXml>
                     <httpConnector>
                         <port>8081</port>
                     </httpConnector>
                     <webApp>
-                        <contextPath>/</contextPath>
+                        <contextPath>/surfsentry</contextPath>
                         <throwUnavailableOnStartupException>true</throwUnavailableOnStartupException>
-                        <!--overrideDescriptor>${overrideDescriptor}</overrideDescriptor-->
                     </webApp>
                 </configuration>
             </plugin>
@@ -183,20 +125,6 @@
                     <path>/surfsentry</path>
                     <url>http://192.168.0.106:8080/manager/text</url>
                     <server>TomcatOnAndersenServer</server>
-                    <!--systemProperties>
-                        <systemProperty>
-                            <name>node.hostname</name>
-                            <value>localhost</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <name>node.logdir</name>
-                            <value>${project.build.directory}/logs</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <name>projectVersion</name>
-                            <value>${project.version}</value>
-                        </systemProperty>
-                    </systemProperties-->
                 </configuration>
             </plugin>
         </plugins>

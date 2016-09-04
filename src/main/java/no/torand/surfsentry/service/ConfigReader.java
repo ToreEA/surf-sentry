@@ -77,9 +77,10 @@ public class ConfigReader {
                 throw new IllegalArgumentException("Invalid formatting of 'days of week': " + daysOfWeekString);
             }
 
-            for (int dayNo = 1; dayNo <= 7; dayNo++) {
-                if ("0Nn-".indexOf(daysOfWeekString.charAt(dayNo-1)) > -1) {
-                    daysOfWeek.remove(DayOfWeek.of(dayNo));
+            final String mask = "MTWTFSS";
+            for (int day = 0; day < 7; day++) {
+                if (mask.charAt(day) != daysOfWeekString.charAt(day)) {
+                    daysOfWeek.remove(DayOfWeek.of(day+1));
                 }
             }
         }

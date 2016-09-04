@@ -1,5 +1,9 @@
 package no.torand.surfsentry.domain;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.EnumSet;
+
 public class AccessRule {
     public enum RuleType { ALLOW, DENY }
 
@@ -8,12 +12,14 @@ public class AccessRule {
     private final RuleType type;
     private final String personName;
     private final String host;
+    private final EnumSet<DayOfWeek> daysOfWeek;
     private final TimeInterval timeInterval;
 
-    public AccessRule(RuleType type, String personName, String host, TimeInterval timeInterval) {
+    public AccessRule(RuleType type, String personName, String host, EnumSet<DayOfWeek> daysOfWeek, TimeInterval timeInterval) {
         this.type = type;
         this.personName = personName;
         this.host = host;
+        this.daysOfWeek = daysOfWeek;
         this.timeInterval = timeInterval;
     }
 
@@ -29,13 +35,18 @@ public class AccessRule {
         return timeInterval;
     }
 
+    public EnumSet<DayOfWeek> getDaysOfWeek() {
+        return daysOfWeek;
+    }
+
     public boolean matches(String remoteUri) {
-      return timeInterval.containsNow() &&
+        DayOfWeek today = DayOfWeek.from(LocalDate.now());
+        return daysOfWeek.contains(today) && timeInterval.containsNow() &&
               (remoteUri.contains(host) || WILDCARD.equals(host));
     }
 
     @Override
     public String toString() {
-        return type.name() + " " + personName + " access to '" + host + "' at " + timeInterval;
+        return type.name() + " " + personName + " access to '" + host + "' at " + timeInterval + " on " + daysOfWeek;
     }
 }

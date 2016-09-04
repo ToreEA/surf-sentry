@@ -14,38 +14,23 @@
     <appender name="trace" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${surfsentry.logdir}/${node.hostname}_trace.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${surfsentry.logdir}/${node.hostname}_trace.%d{yyyy-MM-dd_HH}.log.gz</fileNamePattern>
+            <!-- Daily rollover - Once any of the below condition met, it will change the file name as below and compressed it. -->
+            <fileNamePattern>${surfsentry.logdir}/${node.hostname}_trace.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+            <!-- Keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+            <!-- Or whenever the file size reaches 10 MB -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
             <pattern>%d{yyyy-MM-dd}T%d{'HH:mm:ss.SSS'} %-5level [%thread] %logger{40} %msg%n%nopex</pattern>
         </encoder>
     </appender>
 
-    <!--appender name="stacktrace" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <filter class="no.svv.nvdb.api.inn.logging.StackTraceLogFilter" />
-        <file>${surfsentry.logdir}/${node.hostname}_stacktrace.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${surfsentry.logdir}/${node.hostname}_stacktrace.%d{yyyy-MM-dd_HH}.log.gz</fileNamePattern>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd}T%d{'HH:mm:ss.SSS'} %-5level [%thread] %logger{40} %msg%n</pattern>
-        </encoder>
-    </appender -->
-
-    <!--appender name="accesslog" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${surfsentry.logdir}/${node.hostname}_access.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${surfsentry.logdir}/${node.hostname}_access.%d{yyyy-MM-dd_HH}.log.gz</fileNamePattern>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{yyyy-MM-dd}T%d{'HH:mm:ss.SSS'} [%thread] %msg%n</pattern>
-        </encoder>
-    </appender-->
-
     <root level="INFO">
         <appender-ref ref="trace"/>
-        <appender-ref ref="stdout"/>
-        <!--appender-ref ref="stacktrace"/-->
+        <!--appender-ref ref="stdout"/-->
     </root>
 
 </configuration>

@@ -32,4 +32,23 @@ public class TimeInterval {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_TIME;
         return from.format(formatter) + "-" + to.format(formatter);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TimeInterval)) return false;
+
+        TimeInterval that = (TimeInterval) o;
+
+        if (!from.equals(that.from)) return false;
+        return to.equals(that.to);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = from.hashCode();
+        result = 31 * result + to.hashCode();
+        return result;
+    }
 }

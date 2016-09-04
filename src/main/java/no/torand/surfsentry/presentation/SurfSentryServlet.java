@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @WebServlet("/")
@@ -21,6 +22,7 @@ public class SurfSentryServlet extends HttpServlet {
     private static final Logger LOGGER = LoggerFactory.getLogger(SurfSentryServlet.class);
 
     private ServletContext servletContext;
+    private LocalDateTime startupTime;
     private @Inject StatsCollector statsCollector;
 
     @Override
@@ -31,6 +33,7 @@ public class SurfSentryServlet extends HttpServlet {
     @Override
     public void init(ServletConfig servletConfig) throws ServletException {
         servletContext = servletConfig.getServletContext();
+        startupTime = LocalDateTime.now();
     }
 
     @Override
@@ -49,6 +52,7 @@ public class SurfSentryServlet extends HttpServlet {
         out.println("<html><body>");
         out.println("<style>table, th, td { border: 1px solid black; border-collapse: collapse; padding: 3px;}</style>");
         out.println("<h1>Surf Sentry Statistics</h1>");
+        out.println("Running since: " + startupTime.format(dateTimeFormatter));
 
         out.println("<h2>Devices in Use</h2>");
         out.println("<table><tr><th style='text-align:left'>Device</th><th style='text-align:left'>Last request</th></tr>");

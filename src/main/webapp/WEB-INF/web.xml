@@ -5,20 +5,4 @@
 
   <display-name>Surf Sentry</display-name>
 
-  <!--context-param>
-    <param-name>applicationName</param-name>
-    <param-value>surfsentry</param-value>
-  </context-param>
-
-  <servlet>
-    <servlet-name>Surf Sentry</servlet-name>
-    <servlet-class>no.torand.surfsentry.presentation.SurfSentryServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>Surf Sentry</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping-->
-
 </web-app>

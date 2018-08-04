@@ -12,8 +12,13 @@ import static java.util.stream.Collectors.toList;
 
 @ApplicationScoped
 public class StatsCollector {
+    private LocalDateTime startupTime = LocalDateTime.now();
     private Map<String,PageVisitCount> visitsByHost = new HashMap<>();
     private Map<String, LocalDateTime> lastRequestByDevice = new HashMap<>();
+
+    public LocalDateTime getStartupTime() {
+        return startupTime;
+    }
 
     public synchronized void onRequest(Device clientDevice, String remoteUri) {
         String host = getHost(remoteUri);

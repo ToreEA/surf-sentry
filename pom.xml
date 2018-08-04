@@ -14,10 +14,12 @@
     <url>https://github.com/ToreEA/surf-sentry</url>
 
     <properties>
+        <!--jetty.version>9.4.1.v20170120</jetty.version-->
         <jetty.version>9.3.11.v20160721</jetty.version>
         <javaxservlet.version>3.1.0</javaxservlet.version>
         <cdi-api.version>1.2</cdi-api.version>
-        <weld-servlet.version>3.0.0.Alpha16</weld-servlet.version>
+        <weld-servlet.version>2.4.2.SP1</weld-servlet.version>
+        <jersey.version>2.25.1</jersey.version>
         <littleproxy.version>1.1.0</littleproxy.version>
         <logback.version>1.0.13</logback.version>
         <slf4j.version>1.7.5</slf4j.version>
@@ -37,7 +39,7 @@
         </dependency>
         <dependency>
             <groupId>org.jboss.weld.servlet</groupId>
-            <artifactId>weld-servlet-shaded</artifactId>
+            <artifactId>weld-servlet</artifactId>
             <version>${weld-servlet.version}</version>
             <scope>runtime</scope>
         </dependency>
@@ -46,6 +48,26 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>${javaxservlet.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.ext.cdi</groupId>
+            <artifactId>jersey-cdi1x</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+        <!-- dependency>
+            <groupId>org.glassfish.jersey.ext.cdi</groupId>
+            <artifactId>jersey-cdi1x-transaction</artifactId>
+            <version>2.15</version>
+        </dependency -->
         <dependency>
             <groupId>org.littleshoot</groupId>
             <artifactId>littleproxy</artifactId>
